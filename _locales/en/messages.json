@@ -1,0 +1,79 @@
+{
+  "extName": {
+    "message": "History Nuke",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Search your entire Chrome browsing history by keyword and date range, select results, and delete them. 100% local.",
+    "description": "Extension description"
+  },
+  "popupTitle": {
+    "message": "History Nuke",
+    "description": "Popup header title"
+  },
+  "searchPlaceholder": {
+    "message": "Keyword (leave empty to see all)",
+    "description": "Search input placeholder"
+  },
+  "searchButton": {
+    "message": "Search",
+    "description": "Search button label"
+  },
+  "fromLabel": {
+    "message": "From",
+    "description": "Start date label"
+  },
+  "toLabel": {
+    "message": "To",
+    "description": "End date label"
+  },
+  "selectAllLabel": {
+    "message": "Select all",
+    "description": "Select-all checkbox label"
+  },
+  "deleteButton": {
+    "message": "Delete selected",
+    "description": "Delete button label"
+  },
+  "statusSearching": {
+    "message": "Searching...",
+    "description": "Status while searching"
+  },
+  "statusDeleting": {
+    "message": "Deleting...",
+    "description": "Status while deleting"
+  },
+  "statusSelectAtLeastOne": {
+    "message": "Select at least one result.",
+    "description": "Status when nothing is selected"
+  },
+  "statusDeletedCount": {
+    "message": "$COUNT$ entries deleted.",
+    "description": "Status after deletion",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "confirmDelete": {
+    "message": "Delete $COUNT$ entries from history? This action cannot be undone.",
+    "description": "Confirmation dialog before deleting",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "resultCount": {
+    "message": "$COUNT$ result(s)",
+    "description": "Result count label",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noResults": {
+    "message": "No results.",
+    "description": "Empty state message"
+  },
+  "visitsLabel": {
+    "message": "visit(s)",
+    "description": "Visit count suffix"
+  }
+}

@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>History Nuke</title>
+<title>History Search & Delete</title>
 <style>
   * { box-sizing: border-box; }
   :root {
@@ -238,7 +238,7 @@
 <body>
   <div class="header">
     <div class="header-top">
-      <h1>History Nuke</h1>
+      <h1 data-i18n="popupTitle"></h1>
       <label class="dark-toggle-label">
         🌙
         <span class="switch">
@@ -248,13 +248,13 @@
       </label>
     </div>
     <div class="search-row">
-      <input type="text" id="searchTerm" placeholder="Palabra clave (deja vacío para ver todo)">
-      <button id="searchBtn">Buscar</button>
+      <input type="text" id="searchTerm" data-i18n-placeholder="searchPlaceholder">
+      <button id="searchBtn" data-i18n="searchButton"></button>
     </div>
     <div class="date-row">
-      <label>Desde</label>
+      <label data-i18n="fromLabel"></label>
       <input type="date" id="startDate">
-      <label>Hasta</label>
+      <label data-i18n="toLabel"></label>
       <input type="date" id="endDate">
     </div>
   </div>
@@ -262,10 +262,10 @@
   <div class="toolbar">
     <div class="left">
       <input type="checkbox" id="selectAll">
-      <label for="selectAll">Seleccionar todo</label>
+      <label for="selectAll" data-i18n="selectAllLabel"></label>
       <span id="resultCount"></span>
     </div>
-    <button id="deleteBtn">Eliminar seleccionados</button>
+    <button id="deleteBtn" data-i18n="deleteButton"></button>
   </div>
 
   <div id="status"></div>

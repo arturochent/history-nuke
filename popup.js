@@ -11,6 +11,18 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 
 let currentResults = [];
 
+function t(key, subs) {
+  return chrome.i18n.getMessage(key, subs) || key;
+}
+
+// Localize all static text based on the browser's language (falls back to English)
+document.querySelectorAll('[data-i18n]').forEach((el) => {
+  el.textContent = t(el.dataset.i18n);
+});
+document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+  el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder));
+});
+
 function applyDarkMode(isDark) {
   document.body.classList.toggle('dark', isDark);
   darkModeToggle.checked = isDark;
@@ -27,7 +39,7 @@ darkModeToggle.addEventListener('change', () => {
 });
 
 function formatDate(ts) {
-  return new Date(ts).toLocaleString('es-PA');
+  return new Date(ts).toLocaleString();
 }
 
 function escapeHtml(str) {
@@ -45,7 +57,7 @@ function doSearch() {
     ? new Date(endDateInput.value + 'T23:59:59').getTime()
     : Date.now();
 
-  statusDiv.textContent = 'Buscando...';
+  statusDiv.textContent = t('statusSearching');
   selectAllCheckbox.checked = false;
 
   chrome.history.search(
@@ -56,7 +68,7 @@ function doSearch() {
       currentResults = results;
       renderResults(results);
       statusDiv.textContent = '';
-      resultCountSpan.textContent = `${results.length} resultado(s)`;
+      resultCountSpan.textContent = t('resultCount', [String(results.length)]);
     }
   );
 }
@@ -64,9 +76,10 @@ function doSearch() {
 function renderResults(results) {
   resultsDiv.innerHTML = '';
   if (results.length === 0) {
-    resultsDiv.innerHTML = '<div class="empty">Sin resultados.</div>';
+    resultsDiv.innerHTML = `<div class="empty">${t('noResults')}</div>`;
     return;
   }
+  const visitsLabel = t('visitsLabel');
   const frag = document.createDocumentFragment();
   results.forEach((item, idx) => {
     const row = document.createElement('div');
@@ -76,7 +89,7 @@ function renderResults(results) {
       <div class="info">
         <div class="title">${escapeHtml(item.title || item.url)}</div>
         <div class="url">${escapeHtml(item.url)}</div>
-        <div class="meta">${formatDate(item.lastVisitTime)} · ${item.visitCount} visita(s)</div>
+        <div class="meta">${formatDate(item.lastVisitTime)} · ${item.visitCount} ${visitsLabel}</div>
       </div>
     `;
     frag.appendChild(row);
@@ -98,16 +111,16 @@ searchInput.addEventListener('keydown', (e) => {
 deleteBtn.addEventListener('click', () => {
   const checked = Array.from(document.querySelectorAll('.itemCheckbox:checked'));
   if (checked.length === 0) {
-    statusDiv.textContent = 'Selecciona al menos un resultado.';
+    statusDiv.textContent = t('statusSelectAtLeastOne');
     return;
   }
-  if (!confirm(`¿Eliminar ${checked.length} entrada(s) del historial? Esta acción no se puede deshacer.`)) {
+  if (!confirm(t('confirmDelete', [String(checked.length)]))) {
     return;
   }
 
   const urls = checked.map((cb) => currentResults[parseInt(cb.dataset.idx, 10)].url);
   deleteBtn.disabled = true;
-  statusDiv.textContent = 'Eliminando...';
+  statusDiv.textContent = t('statusDeleting');
 
   let remaining = urls.length;
   urls.forEach((url) => {
@@ -115,12 +128,12 @@ deleteBtn.addEventListener('click', () => {
       remaining -= 1;
       if (remaining === 0) {
         deleteBtn.disabled = false;
-        statusDiv.textContent = `${urls.length} entrada(s) eliminada(s).`;
+        statusDiv.textContent = t('statusDeletedCount', [String(urls.length)]);
         doSearch();
       }
     });
   });
 });
 
-// Carga inicial: muestra historial reciente
+// Initial load: show recent history
 doSearch();

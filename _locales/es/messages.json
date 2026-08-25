@@ -1,0 +1,79 @@
+{
+  "extName": {
+    "message": "History Nuke",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Busca en todo tu historial de Chrome por palabra clave y rango de fechas, selecciona resultados y elimínalos. 100% local.",
+    "description": "Extension description"
+  },
+  "popupTitle": {
+    "message": "History Nuke",
+    "description": "Popup header title"
+  },
+  "searchPlaceholder": {
+    "message": "Palabra clave (deja vacío para ver todo)",
+    "description": "Search input placeholder"
+  },
+  "searchButton": {
+    "message": "Buscar",
+    "description": "Search button label"
+  },
+  "fromLabel": {
+    "message": "Desde",
+    "description": "Start date label"
+  },
+  "toLabel": {
+    "message": "Hasta",
+    "description": "End date label"
+  },
+  "selectAllLabel": {
+    "message": "Seleccionar todo",
+    "description": "Select-all checkbox label"
+  },
+  "deleteButton": {
+    "message": "Eliminar seleccionados",
+    "description": "Delete button label"
+  },
+  "statusSearching": {
+    "message": "Buscando...",
+    "description": "Status while searching"
+  },
+  "statusDeleting": {
+    "message": "Eliminando...",
+    "description": "Status while deleting"
+  },
+  "statusSelectAtLeastOne": {
+    "message": "Selecciona al menos un resultado.",
+    "description": "Status when nothing is selected"
+  },
+  "statusDeletedCount": {
+    "message": "$COUNT$ entrada(s) eliminada(s).",
+    "description": "Status after deletion",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "confirmDelete": {
+    "message": "¿Eliminar $COUNT$ entrada(s) del historial? Esta acción no se puede deshacer.",
+    "description": "Confirmation dialog before deleting",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "resultCount": {
+    "message": "$COUNT$ resultado(s)",
+    "description": "Result count label",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "noResults": {
+    "message": "Sin resultados.",
+    "description": "Empty state message"
+  },
+  "visitsLabel": {
+    "message": "visita(s)",
+    "description": "Visit count suffix"
+  }
+}
