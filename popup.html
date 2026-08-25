@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>History Search & Delete</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --bg: #fafafa;
+    --panel-bg: #fff;
+    --border: #e2e2e2;
+    --border-soft: #f0f0f0;
+    --text: #1f2328;
+    --text-muted: #666;
+    --text-faint: #888;
+    --input-border: #ccc;
+    --row-hover: #f5f8ff;
+    --link: #1a73e8;
+    --accent: #1a73e8;
+    --accent-hover: #1765cc;
+    --danger: #d93025;
+    --danger-hover: #b3261e;
+    --danger-disabled: #e0a19c;
+  }
+  body.dark {
+    --bg: #202124;
+    --panel-bg: #292a2d;
+    --border: #3c3d40;
+    --border-soft: #333438;
+    --text: #e8eaed;
+    --text-muted: #b0b3b8;
+    --text-faint: #8a8d91;
+    --input-border: #5f6368;
+    --row-hover: #33353a;
+    --link: #8ab4f8;
+    --accent: #8ab4f8;
+    --accent-hover: #aecbfa;
+    --danger: #f28b82;
+    --danger-hover: #f6aea7;
+    --danger-disabled: #5c3a38;
+  }
+  body {
+    width: 480px;
+    max-height: 600px;
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg);
+  }
+  .header {
+    padding: 12px 14px 10px;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    border-radius: 20px;
+    transition: 0.2s;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+  input:checked + .slider {
+    background-color: var(--accent);
+  }
+  input:checked + .slider:before {
+    transform: translateX(16px);
+  }
+  .dark-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .search-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  input[type="text"], input[type="date"] {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 6px 8px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    outline: none;
+    background: var(--panel-bg);
+    color: var(--text);
+  }
+  #searchTerm {
+    flex: 1;
+  }
+  .date-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+  }
+  .date-row label {
+    font-size: 12px;
+  }
+  .date-row input[type="date"] {
+    flex: 1;
+  }
+  button {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #searchBtn {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  body.dark #searchBtn { color: #202124; }
+  #searchBtn:hover { background: var(--accent-hover); }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .toolbar .left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  #resultCount {
+    color: var(--text-muted);
+  }
+  #deleteBtn {
+    background: var(--danger);
+    color: #fff;
+    font-weight: 600;
+  }
+  body.dark #deleteBtn { color: #202124; }
+  #deleteBtn:hover { background: var(--danger-hover); }
+  #deleteBtn:disabled {
+    background: var(--danger-disabled);
+    color: var(--text-faint);
+    cursor: not-allowed;
+  }
+  #results {
+    max-height: 380px;
+    overflow-y: auto;
+    background: var(--panel-bg);
+  }
+  .row {
+    display: flex;
+    gap: 8px;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: flex-start;
+  }
+  .row:hover {
+    background: var(--row-hover);
+  }
+  .row input[type="checkbox"] {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+  .info {
+    min-width: 0;
+    flex: 1;
+  }
+  .title {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .url {
+    color: var(--link);
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .meta {
+    color: var(--text-faint);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .empty {
+    padding: 24px 14px;
+    text-align: center;
+    color: var(--text-faint);
+  }
+  #status {
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--accent);
+    min-height: 16px;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-top">
+      <h1>History Nuke</h1>
+      <label class="dark-toggle-label">
+        🌙
+        <span class="switch">
+          <input type="checkbox" id="darkModeToggle">
+          <span class="slider"></span>
+        </span>
+      </label>
+    </div>
+    <div class="search-row">
+      <input type="text" id="searchTerm" placeholder="Palabra clave (deja vacío para ver todo)">
+      <button id="searchBtn">Buscar</button>
+    </div>
+    <div class="date-row">
+      <label>Desde</label>
+      <input type="date" id="startDate">
+      <label>Hasta</label>
+      <input type="date" id="endDate">
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="left">
+      <input type="checkbox" id="selectAll">
+      <label for="selectAll">Seleccionar todo</label>
+      <span id="resultCount"></span>
+    </div>
+    <button id="deleteBtn">Eliminar seleccionados</button>
+  </div>
+
+  <div id="status"></div>
+  <div id="results"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

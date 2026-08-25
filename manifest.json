@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "History Nuke",
+  "version": "1.0.0",
+  "description": "Search your entire Chrome browsing history by keyword and date range, select results, and delete them. 100% local.",
+  "permissions": ["history", "storage"],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "History Search & Delete",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  }
+}
