@@ -8,6 +8,9 @@ const deleteBtn = document.getElementById('deleteBtn');
 const statusDiv = document.getElementById('status');
 const resultCountSpan = document.getElementById('resultCount');
 const darkModeToggle = document.getElementById('darkModeToggle');
+const donateBtn = document.getElementById('donateBtn');
+
+const PAYPAL_URL = 'https://paypal.me/arturochent';
 
 let currentResults = [];
 
@@ -36,6 +39,10 @@ darkModeToggle.addEventListener('change', () => {
   const isDark = darkModeToggle.checked;
   applyDarkMode(isDark);
   chrome.storage.local.set({ darkMode: isDark });
+});
+
+donateBtn.addEventListener('click', () => {
+  chrome.tabs.create({ url: PAYPAL_URL });
 });
 
 function formatDate(ts) {

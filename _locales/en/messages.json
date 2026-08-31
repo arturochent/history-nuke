@@ -75,5 +75,13 @@
   "visitsLabel": {
     "message": "visit(s)",
     "description": "Visit count suffix"
+  },
+  "donateMessage": {
+    "message": "Enjoying History Nuke? You can support my work here!",
+    "description": "Donation footer message"
+  },
+  "donateButton": {
+    "message": "☕ Support",
+    "description": "Donation button label"
   }
 }

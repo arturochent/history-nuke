@@ -75,5 +75,13 @@
   "visitsLabel": {
     "message": "visita(s)",
     "description": "Visit count suffix"
+  },
+  "donateMessage": {
+    "message": "¿Te pareció buena la extensión? ¡Puedes apoyar mis creaciones aquí!",
+    "description": "Donation footer message"
+  },
+  "donateButton": {
+    "message": "☕ Apoyar",
+    "description": "Donation button label"
   }
 }
