@@ -48,6 +48,10 @@ The extension requests two permissions, `history` and `storage`. It has no serve
 
 History Nuke is free. If it saves you time and you want to support more small tools like it, there is a donation button inside the extension, or you can use [paypal.me/arturochent](https://paypal.me/arturochent). Bugs and ideas are welcome as issues in this repository.
 
+### License
+
+Released under the [MIT License](LICENSE).
+
 Made by Small Coding Lab.
 
 ---
@@ -89,5 +93,9 @@ La extensión pide dos permisos, `history` y `storage`. No tiene servidores y no
 ### Apoyo
 
 History Nuke es gratuita. Si te ahorra tiempo y quieres apoyar más herramientas pequeñas como esta, hay un botón de donación dentro de la extensión, o puedes usar [paypal.me/arturochent](https://paypal.me/arturochent). Los bugs y las ideas son bienvenidos como issues en este repositorio.
+
+### Licencia
+
+Publicado bajo la [licencia MIT](LICENSE).
 
 Hecho por Small Coding Lab.
